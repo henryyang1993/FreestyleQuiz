@@ -1,2 +1,2 @@
 # FreestyleQuiz
-Freestyle quiz for Alexa skill
+Freestyle Quiz for Alexa Skill
