@@ -30,16 +30,13 @@ def songMode():
     session.attributes["answer"] = audioData["song"]
     session.attributes["song"] = audioData["song"]
     session.attributes["singer"] = audioData["singer"]
-    
+    ssml = "<speak><audio src={} /></speak>".format(audioData["preview_url"])
+
     audio = {
         "response": {
             "outputSpeech": {
                 "type": "SSML",
-                "ssml": """
-                    <speak>
-                        <audio src='audioData["preview_url"]' />
-                    </speak>
-                """
+                "ssml": ssml
             },
             "shouldEndSession": False
         },
@@ -56,16 +53,13 @@ def singerMode():
     session.attributes["answer"] = audioData["singer"]
     session.attributes["song"] = audioData["song"]
     session.attributes["singer"] = audioData["singer"]
+    ssml = "<speak><audio src={} /></speak>".format(audioData["preview_url"])
     
     audio = {
         "response": {
             "outputSpeech": {
                 "type": "SSML",
-                "ssml": """
-                    <speak>
-                        <audio src='audioData["preview_url"]' />
-                    </speak>
-                """
+                "ssml": ssml
             },
             "shouldEndSession": False
         },
