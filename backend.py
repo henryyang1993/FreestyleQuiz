@@ -34,14 +34,9 @@ def getSongMeta():
     return json.dumps(ret)
 
 
-@app.route("/songMeta", methods=["GET"])
-    ret = getSong()
-    return json.dumps(ret)
-
-
 @app.route("/fullSongMeta", methods=["GET"])
 def getFullSongMeta():
-	ret = getFullSong()
+    ret = getFullSong()
     return json.dumps(ret)
 
 	
