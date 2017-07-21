@@ -33,19 +33,14 @@ def songMode():
     
     audio = {
         "response": {
-            "directives": [
-                {
-                    "type": "AudioPlayer.Play",
-                    "playBehavior": "REPLACE_ALL",
-                    "audioItem": {
-                        "stream": {
-                            "token": audioData["preview_url"],
-                            "url": audioData["preview_url"],
-                            "offsetInMilliseconds": 0
-                        }
-                    }
-                }
-            ],
+            "outputSpeech": {
+                "type": "SSML",
+                "ssml": """
+                    <speak>
+                        <audio src='audioData["preview_url"]' />
+                    </speak>
+                """
+            },
             "shouldEndSession": False
         },
         "sessionAttributes":session.attributes
@@ -64,19 +59,14 @@ def singerMode():
     
     audio = {
         "response": {
-            "directives": [
-                {
-                    "type": "AudioPlayer.Play",
-                    "playBehavior": "REPLACE_ALL",
-                    "audioItem": {
-                        "stream": {
-                            "token": audioData["preview_url"],
-                            "url": audioData["preview_url"],
-                            "offsetInMilliseconds": 0
-                        }
-                    }
-                }
-            ],
+            "outputSpeech": {
+                "type": "SSML",
+                "ssml": """
+                    <speak>
+                        <audio src='audioData["preview_url"]' />
+                    </speak>
+                """
+            },
             "shouldEndSession": False
         },
         "sessionAttributes":session.attributes
