@@ -1,14 +1,14 @@
 [
 	{
-		"name" : "Another Day of Sun",
-		"artists" : "La La Land Cast"
+		"song" : "Another Day of Sun",
+		"singer" : "La La Land Cast"
 	},
 	{
-		"name" : "What Makes You Beautiful",
-		"artists" : "One Direction"
+		"song" : "What Makes You Beautiful",
+		"singer" : "One Direction"
 	},
 	{
-		"name" : "Sugar",
-		"artists" : "Maroon 5"
+		"song" : "Sugar",
+		"singer" : "Maroon 5"
 	}
 ]
