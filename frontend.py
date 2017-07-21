@@ -2,6 +2,7 @@ import logging
 import json
 import requests
 
+
 from flask import Flask, render_template
 from flask_ask import Ask, statement, question, session
 

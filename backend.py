@@ -25,6 +25,11 @@ def getToken():
 def handleIndex():
     return "ok"
 
+@app.route("/songfile", methods=["GET"])
+def getSongFile():
+    response = make_response(send_file("output.mp3"))
+    response.headers["Content-Disposition"] = "attachment; filename=output.mp3;"
+    return response
 
 @app.route("/track", methods=["GET"])
 def handleSong():
