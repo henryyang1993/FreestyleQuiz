@@ -28,7 +28,7 @@ def new_game():
 
 def songMode():
     # session.attributes['mode'] = "song"
-    musicData = requests.get("localhost/track?meta=song")
+    musicData = requests.get("http://localhost/track?meta=song").json()
     session.attributes['answer'] = musicData['meta']
 
     audio = {
@@ -40,7 +40,7 @@ def songMode():
                     "audioItem": {
                         "stream": {
                             "token": "0",
-                            "url": musicData['preview_url'],
+                            "url": musicData['preview'],
                             "offsetInMilliseconds": 0
                         }
                     }
@@ -57,7 +57,7 @@ def artistMode():
     # session.attributes['mode'] = "singer"
     #play music
     # play_msg = render_template('guess')
-    musicData = requests.get("localhost/track?meta=artist")
+    musicData = requests.get("http://localhost/track?meta=artist").json()
     session.attributes['answer'] = musicData['meta']
 
     audio = {
@@ -69,7 +69,7 @@ def artistMode():
                     "audioItem": {
                         "stream": {
                             "token": "0",
-                            "url": musicData['preview_url'],
+                            "url": musicData['preview'],
                             "offsetInMilliseconds": 0
                         }
                     }
