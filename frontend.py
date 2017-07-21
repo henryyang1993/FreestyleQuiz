@@ -1,4 +1,6 @@
 import logging
+import json
+import requests
 
 from random import randint
 
@@ -22,13 +24,14 @@ def new_game():
 
     return question(welcome_msg)
 
-@ask.intent("ModeIntent", convert={'mode': str})
+@ask.intent("SongIntent")
 
-def selectMode(mode):
-    session.attributes['mode'] = mode
-    #play music
-    # play_msg = render_template('guess')
-    music = {
+def songMode():
+    # session.attributes['mode'] = "song"
+    musicData = requests.get("localhost/track?meta=song")
+    session.attributes['answer'] = musicData['meta']
+
+    audio = {
         "response": {
             "directives": [
                 {
@@ -37,7 +40,7 @@ def selectMode(mode):
                     "audioItem": {
                         "stream": {
                             "token": "0",
-                            "url": "https://p.scdn.co/mp3-preview/12b8cee72118f995f5494e1b34251e4ac997445e?cid=1cc6b53b0b124bd2bb767bdcafc1b471",
+                            "url": musicData['preview_url'],
                             "offsetInMilliseconds": 0
                         }
                     }
@@ -46,16 +49,42 @@ def selectMode(mode):
             "shouldEndSession": False
         }
     }
-    session.attributes['answer'] = "singer"
-    return music
-    # return statement(play_msg)
+    return json.dumps(audio)
 
+@ask.intent("ArtistIntent")
+
+def artistMode():
+    # session.attributes['mode'] = "singer"
+    #play music
+    # play_msg = render_template('guess')
+    musicData = requests.get("localhost/track?meta=artist")
+    session.attributes['answer'] = musicData['meta']
+
+    audio = {
+        "response": {
+            "directives": [
+                {
+                    "type": "AudioPlayer.Play",
+                    "playBehavior": "REPLACE_ALL",
+                    "audioItem": {
+                        "stream": {
+                            "token": "0",
+                            "url": musicData['preview_url'],
+                            "offsetInMilliseconds": 0
+                        }
+                    }
+                }
+            ],
+            "shouldEndSession": False
+        }
+    }
+    return json.dumps(audio)
 
 @ask.intent("YesIntent")
 
 def next_round():
-    mode = session.attributes['mode']
-    selectMode(mode)
+    msg = render_template('mode')
+    return statement(msg)
  
 
 @ask.intent("AnswerIntent", convert={'answer': str})
