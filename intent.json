@@ -23,12 +23,11 @@
     {
       "name": "AnswerIntent",
       "samples": [
-        "The singer is {answer}",
-        "The song is {answer}"
+        "the song is {song}"
       ],
       "slots": [
         {
-          "name": "answer",
+          "name": "song",
           "type": "AMAZON.Movie",
           "samples": []
         }
@@ -47,16 +46,9 @@
       "slots": []
     },
     {
-      "name": "SingerIntent",
+      "name": "GameIntent",
       "samples": [
-        "singer mode"
-      ],
-      "slots": []
-    },
-    {
-      "name": "SongIntent",
-      "samples": [
-        "song mode"
+        "game mode"
       ],
       "slots": []
     },

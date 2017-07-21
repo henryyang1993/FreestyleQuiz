@@ -31,7 +31,7 @@ def songMode():
     session.attributes["answer"] = audioData["song"]
     session.attributes["song"] = audioData["song"]
     session.attributes["singer"] = audioData["singer"]
-    ssml = "<speak>Let's guess the song name! <audio src='{}' /></speak>".format("https://b530e54b.ngrok.io/songfile")
+    ssml = "<speak><audio src='{}' /></speak>".format("https://65605d0d.ngrok.io/songfile")
 
     audio = {
         "response": {
@@ -54,7 +54,7 @@ def singerMode():
     session.attributes["answer"] = audioData["singer"]
     session.attributes["song"] = audioData["song"]
     session.attributes["singer"] = audioData["singer"]
-    ssml = "<speak>Let's guess the singer name! <audio src='{}' /></speak>".format("https://b530e54b.ngrok.io/songfile")
+    ssml = "<speak><audio src='{}' /></speak>".format("https://65605d0d.ngrok.io/songfile")
     
     audio = {
         "response": {
@@ -112,4 +112,4 @@ def answer(song, singer):
 
 if __name__ == "__main__":
 
-    app.run(debug=True, host="0.0.0.0", port=8080, threaded=True)
+    app.run(debug=True)

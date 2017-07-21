@@ -1,6 +1,6 @@
-welcome: Welcome to freestyle quiz. What mode do you want? Song mode or singer mode.
+welcome: I am your kitchen friend. Are you preparing your breakfast?
 
-next: What mode do you want? Song mode or singer mode.
+next: Let's get some fun! What mode do you want? Listen mode or game mode.
 
 correct: Good job! That's {{ song }} from {{ singer }}. Are you ready for next round?
 

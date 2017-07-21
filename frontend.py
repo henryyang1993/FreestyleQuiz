@@ -23,39 +23,15 @@ def new_game():
     return question(welcome_msg).reprompt(render_template("reprompt"))
 
 
-@ask.intent("SongIntent")
+@ask.intent("GameIntent")
 
 def songMode():
-    audioData = requests.get("http://localhost/track").json()
-    session.attributes["mode"] = "song"
-    session.attributes["answer"] = audioData["song"]
+    audioData = requests.get("http://localhost:8081/track").json()
+    session.attributes["mode"] = "game"
     session.attributes["song"] = audioData["song"]
     session.attributes["singer"] = audioData["singer"]
-    ssml = "<speak><audio src='{}' /></speak>".format("https://65605d0d.ngrok.io/songfile")
+    ssml = "<speak>Let's guess the song name! <audio src='{}' /></speak>".format("https://b530e54b.ngrok.io/songfile")
 
-    audio = {
-        "response": {
-            "outputSpeech": {
-                "type": "SSML",
-                "ssml": ssml
-            },
-            "shouldEndSession": False
-        },
-        "sessionAttributes":session.attributes
-    }
-    return json.dumps(audio)
-
-
-@ask.intent("SingerIntent")
-
-def singerMode():
-    audioData = requests.get("http://localhost/track").json()
-    session.attributes["mode"] = "singer"
-    session.attributes["answer"] = audioData["singer"]
-    session.attributes["song"] = audioData["song"]
-    session.attributes["singer"] = audioData["singer"]
-    ssml = "<speak><audio src='{}' /></speak>".format("https://65605d0d.ngrok.io/songfile")
-    
     audio = {
         "response": {
             "outputSpeech": {
@@ -83,9 +59,9 @@ def next_round():
     return question(msg).reprompt(render_template("reprompt"))
  
 
-@ask.intent("AnswerIntent", convert={"song": str, "singer": str})
+@ask.intent("AnswerIntent", convert={"song": str})
 
-def answer(song, singer):
+def answer(song):
     correct_mode = session.attributes["mode"]
     correct_answer = session.attributes["answer"]
     correct_song = session.attributes["song"]
@@ -112,4 +88,4 @@ def answer(song, singer):
 
 if __name__ == "__main__":
 
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=8080, threaded=True)
