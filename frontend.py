@@ -48,7 +48,8 @@ def songMode():
                 }
             ],
             "shouldEndSession": False
-        }
+        },
+        "sessionAttributes":session.attributes
     }
     return json.dumps(audio)
 
@@ -77,7 +78,8 @@ def singerMode():
                 }
             ],
             "shouldEndSession": False
-        }
+        },
+        "sessionAttributes":session.attributes
     }
     return json.dumps(audio)
 
