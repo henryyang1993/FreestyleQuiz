@@ -1,7 +1,11 @@
-welcome: Welcome to freestyle quiz. What mode do you want? Song mode or singer mode?
+welcome: Welcome to freestyle quiz. What mode do you want? Song mode or singer mode.
 
-next: What mode do you want? Song mode or singer mode?
+next: What mode do you want? Song mode or singer mode.
 
 correct: Good job! That's {{ song }} from {{ singer }}. Are you ready for next round?
 
 wrong: Sorry, That's {{ song }} from {{ singer }}. Are you ready for next round?
+
+terminate: Good bye! Have a good one.
+
+reprompt: Sorry, I didn't get you. Could you say that again?

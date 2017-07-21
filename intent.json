@@ -35,6 +35,18 @@
       ]
     },
     {
+      "name": "NextIntent",
+      "samples": [
+        "Come on",
+        "I'm ready",
+        "Please do",
+        "Sure",
+        "Yes",
+        "Ready"
+      ],
+      "slots": []
+    },
+    {
       "name": "SingerIntent",
       "samples": [
         "singer mode"
@@ -49,13 +61,12 @@
       "slots": []
     },
     {
-      "name": "nextIntent",
+      "name": "TerminateIntent",
       "samples": [
-        "Come on",
-        "I'm ready",
-        "Please do",
-        "Sure",
-        "Yes"
+        "No",
+        "That's it",
+        "No thanks",
+        "Good bye"
       ],
       "slots": []
     }
