@@ -25,12 +25,12 @@ def new_game():
 
 @ask.intent("GameIntent")
 
-def songMode():
-    audioData = requests.get("http://localhost:8081/track").json()
-    session.attributes["mode"] = "game"
+def gameMode():
+    audioData = requests.get("http://localhost:8081/songMeta").json()
     session.attributes["song"] = audioData["song"]
     session.attributes["singer"] = audioData["singer"]
-    ssml = "<speak>Let's guess the song name! <audio src='{}' /></speak>".format("https://b530e54b.ngrok.io/songfile")
+
+    ssml = "<speak><audio src='{}' /></speak>".format("https://65605d0d.ngrok.io/songfile?name=%s" % audioData["song"])
 
     audio = {
         "response": {
@@ -43,7 +43,6 @@ def songMode():
         "sessionAttributes":session.attributes
     }
     return json.dumps(audio)
-
 
 @ask.intent("TerminateIntent")
 
@@ -62,20 +61,10 @@ def next_round():
 @ask.intent("AnswerIntent", convert={"song": str})
 
 def answer(song):
-    correct_mode = session.attributes["mode"]
-    correct_answer = session.attributes["answer"]
     correct_song = session.attributes["song"]
     correct_singer = session.attributes["singer"]
 
-    if correct_mode == "song":
-        answer = song
-    else:
-        answer = singer
-
-    if answer:
-        print ("User's answer:" + answer)
-
-    if answer and answer.lower() == correct_answer.lower():
+    if song.lower() == correct_song.lower():
 
         msg = render_template("correct", song=correct_song, singer=correct_singer)
 
