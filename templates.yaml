@@ -1,9 +1,9 @@
 welcome: Welcome to freestyle quiz. What mode do you want? Song mode or singer mode?
 
-guess: 
+mode: What mode do you want? Song mode or singer mode?
 
 round: Guess this!
 
-win: Good job!
+win: Good job! Are you ready for next round?
 
-lose: Sorry, that's the wrong answer.
+lose: Sorry, that's the wrong answer. Are you ready for next round?
