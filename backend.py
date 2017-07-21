@@ -2,7 +2,6 @@ from flask import Flask, request, send_from_directory
 import requests
 import base64
 import json
-from convert import covertSong, getSong
 
 app = Flask(__name__, static_url_path="")
 
@@ -17,10 +16,11 @@ def getSong():
 @app.route("/songfile", methods=["GET"])
 def getSongFile():
     songname = request.args.get('name', 'sugar')
-    return send_from_directory('.', "%s.mp3" % songname)
+    return send_from_directory('music', "%s.mp3" % songname)
 
 
 @app.route("/songMeta", methods=["GET"])
+def getSongMeta():
     ret = getSong()
     return json.dumps(ret)
 
