@@ -12,8 +12,6 @@ ask = Ask(app, "/")
 
 logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 
-reprompt = render_template("reprompt")
-
 
 @ask.launch
 
@@ -21,13 +19,14 @@ def new_game():
 
     welcome_msg = render_template("welcome")
 
-    return question(welcome_msg).reprompt(reprompt)
+    return question(welcome_msg).reprompt(render_template("reprompt"))
 
 
 @ask.intent("SongIntent")
 
 def songMode():
     audioData = requests.get("http://localhost/track").json()
+    session.attributes["mode"] = "song"
     session.attributes["answer"] = audioData["song"]
     session.attributes["song"] = audioData["song"]
     session.attributes["singer"] = audioData["singer"]
@@ -58,6 +57,7 @@ def songMode():
 
 def singerMode():
     audioData = requests.get("http://localhost/track").json()
+    session.attributes["mode"] = "singer"
     session.attributes["answer"] = audioData["singer"]
     session.attributes["song"] = audioData["song"]
     session.attributes["singer"] = audioData["singer"]
@@ -95,25 +95,31 @@ def terminate():
 
 def next_round():
     msg = render_template("next")
-    return question(msg).reprompt(reprompt)
+    return question(msg).reprompt(render_template("reprompt"))
  
 
-@ask.intent("AnswerIntent", convert={"answer": str})
+@ask.intent("AnswerIntent", convert={"song": str, "singer": str})
 
-def answer(answer):
+def answer(song, singer):
+    correct_mode = session.attributes["mode"]
     correct_answer = session.attributes["answer"]
-    song = session.attributes["song"]
-    singer = session.attributes["singer"]
+    correct_song = session.attributes["song"]
+    correct_singer = session.attributes["singer"]
 
-    if answer.lower() == correct_answer.lower():
+    if correct_mode == "song":
+        answer = song
+    else:
+        answer = singer
 
-        msg = render_template("correct", song=song, singer=singer)
+    if answer and answer.lower() == correct_answer.lower():
+
+        msg = render_template("correct", song=correct_song, singer=correct_singer)
 
     else:
 
-        msg = render_template("wrong", song=song, singer=singer)
+        msg = render_template("wrong", song=correct_song, singer=correct_singer)
 
-    return question(msg).reprompt(reprompt)
+    return question(msg).reprompt(render_template("reprompt"))
 
 
 if __name__ == "__main__":
