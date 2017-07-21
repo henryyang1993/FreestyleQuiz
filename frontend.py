@@ -96,7 +96,7 @@ def answer(answer):
     print "The answer is " + answer
     winning_answer = session.attributes['answer']
 
-    if answer == winning_answer:
+    if answer.lower() == winning_answer.lower():
 
         msg = render_template('win')
 
