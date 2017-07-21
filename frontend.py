@@ -31,7 +31,7 @@ def songMode():
     session.attributes["answer"] = audioData["song"]
     session.attributes["song"] = audioData["song"]
     session.attributes["singer"] = audioData["singer"]
-    ssml = "<speak><audio src='{}' /></speak>".format(audioData["preview_url"])
+    ssml = "<speak><audio src='{}' /></speak>".format("https://e66c17f5.ngrok.io/songfile")
 
     audio = {
         "response": {
@@ -54,7 +54,7 @@ def singerMode():
     session.attributes["answer"] = audioData["singer"]
     session.attributes["song"] = audioData["song"]
     session.attributes["singer"] = audioData["singer"]
-    ssml = "<speak><audio src='{}' /></speak>".format(audioData["preview_url"])
+    ssml = "<speak><audio src='{}' /></speak>".format("https://e66c17f5.ngrok.io/songfile")
     
     audio = {
         "response": {
