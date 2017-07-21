@@ -90,7 +90,7 @@ def next_round():
 @ask.intent("AnswerIntent", convert={'answer': str})
 
 def answer(answer):
-
+    print "The answer is" + answer
     winning_answer = session.attributes['answer']
 
     if answer == winning_answer:
