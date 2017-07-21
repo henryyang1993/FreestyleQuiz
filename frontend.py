@@ -30,7 +30,7 @@ def gameMode():
     session.attributes["song"] = audioData["song"]
     session.attributes["singer"] = audioData["singer"]
 
-    ssml = "<speak><audio src='{}' /></speak>".format("https://65605d0d.ngrok.io/songfile?name=%s" % audioData["song"])
+    ssml = "<speak><audio src='{}' /></speak>".format("https://b530e54b.ngrok.io/songfile?name=%s" % audioData["song"])
 
     audio = {
         "response": {
