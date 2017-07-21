@@ -2,10 +2,7 @@ import logging
 import json
 import requests
 
-from random import randint
-
 from flask import Flask, render_template
-
 from flask_ask import Ask, statement, question, session
 
 
@@ -22,16 +19,16 @@ def new_game():
 
     welcome_msg = render_template('welcome')
 
-    return question(welcome_msg)
+    return statement(welcome_msg)
 
 @ask.intent("SongIntent")
 
 def songMode():
-    # session.attributes['mode'] = "song"
-    musicData = requests.get("http://localhost/track?meta=song").json()
-    session.attributes['answer'] = musicData['meta']
-    print "Get Meta Answer: " + musicData['meta']
-
+    audioData = requests.get("http://localhost/track").json()
+    session.attributes['answer'] = audioData['song']
+    session.attributes['song'] = audioData['song']
+    session.attributes['singer'] = audioData['singer']
+    
     audio = {
         "response": {
             "directives": [
@@ -40,8 +37,8 @@ def songMode():
                     "playBehavior": "REPLACE_ALL",
                     "audioItem": {
                         "stream": {
-                            "token": "0",
-                            "url": musicData['preview'],
+                            "token": audioData['preview_url'],
+                            "url": audioData['preview_url'],
                             "offsetInMilliseconds": 0
                         }
                     }
@@ -56,12 +53,11 @@ def songMode():
 @ask.intent("SingerIntent")
 
 def singerMode():
-    # session.attributes['mode'] = "singer"
-    #play music
-    # play_msg = render_template('guess')
-    musicData = requests.get("http://localhost/track?meta=artist").json()
-    session.attributes['answer'] = musicData['meta']
-    print "Get Meta Answer: " + musicData['meta']
+    audioData = requests.get("http://localhost/track").json()
+    session.attributes['answer'] = audioData['singer']
+    session.attributes['song'] = audioData['song']
+    session.attributes['singer'] = audioData['singer']
+    
     audio = {
         "response": {
             "directives": [
@@ -70,8 +66,8 @@ def singerMode():
                     "playBehavior": "REPLACE_ALL",
                     "audioItem": {
                         "stream": {
-                            "token": "0",
-                            "url": musicData['preview'],
+                            "token": audioData['preview_url'],
+                            "url": audioData['preview_url'],
                             "offsetInMilliseconds": 0
                         }
                     }
@@ -83,28 +79,29 @@ def singerMode():
     }
     return json.dumps(audio)
 
-@ask.intent("YesIntent")
+@ask.intent("nextIntent")
 
 def next_round():
-    msg = render_template('mode')
-    return statement(msg)
+    msg = render_template('next')
+    return question(msg)
  
 
 @ask.intent("AnswerIntent", convert={'answer': str})
 
 def answer(answer):
-    print "The answer is " + answer
-    winning_answer = session.attributes['answer']
+    correct_answer = session.attributes['answer']
+    song = session.attributes['song']
+    singer = session.attributes['singer']
 
-    if answer.lower() == winning_answer.lower():
+    if answer.lower() == correct_answer.lower():
 
-        msg = render_template('win')
+        msg = render_template('correct', song=song, singer=singer)
 
     else:
 
-        msg = render_template('lose')
+        msg = render_template('wrong', song=song, singer=singer)
 
-    return statement(msg)
+    return question(msg)
 
 
 if __name__ == '__main__':

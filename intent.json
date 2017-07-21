@@ -1,0 +1,63 @@
+{
+  "intents": [
+    {
+      "name": "AMAZON.CancelIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.PauseIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.ResumeIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.StopIntent",
+      "samples": []
+    },
+    {
+      "name": "AnswerIntent",
+      "samples": [
+        "The singer is {answer}",
+        "The song is {answer}"
+      ],
+      "slots": [
+        {
+          "name": "answer",
+          "type": "AMAZON.Movie",
+          "samples": []
+        }
+      ]
+    },
+    {
+      "name": "SingerIntent",
+      "samples": [
+        "singer mode"
+      ],
+      "slots": []
+    },
+    {
+      "name": "SongIntent",
+      "samples": [
+        "song mode"
+      ],
+      "slots": []
+    },
+    {
+      "name": "nextIntent",
+      "samples": [
+        "Come on",
+        "I'm ready",
+        "Please do",
+        "Sure",
+        "Yes"
+      ],
+      "slots": []
+    }
+  ]
+}

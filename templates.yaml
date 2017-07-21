@@ -1,9 +1,7 @@
 welcome: Welcome to freestyle quiz. What mode do you want? Song mode or singer mode?
 
-mode: What mode do you want? Song mode or singer mode?
+next: What mode do you want? Song mode or singer mode?
 
-round: Guess this!
+correct: Good job! That's {{ song }} from {{ singer }}. Are you ready for next round?
 
-win: Good job! Are you ready for next round?
-
-lose: Sorry, that's the wrong answer. Are you ready for next round?
+wrong: Sorry, That's {{ song }} from {{ singer }}. Are you ready for next round?

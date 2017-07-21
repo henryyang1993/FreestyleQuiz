@@ -6,7 +6,7 @@ import json
 app = Flask(__name__, static_url_path="")
 spotify = {}
 
-with open("spotify.txt") as f:
+with open("spotify.json") as f:
     spotify = json.loads(f.read())
 
 
@@ -33,14 +33,9 @@ def handleSong():
     r = requests.get("https://api.spotify.com/v1/tracks/2TpxZ7JUBn3uw46aR7qd6V", 
         headers = {"Authorization": "Bearer " + token})
     response = r.json()
-    data = ""
-    if meta == "song":
-        data = response["name"]
-    if meta == "artist":
-        data = response["artists"][0]["name"]
-    if meta == "album":
-        data = response["album"]["name"]
-    ret = {"preview": response["preview_url"], "meta": data}
+    song = response["name"]
+    singer = response["artists"][0]["name"]
+    ret = {"preview_url": response["preview_url"], "song": song, "singer": singer}
     return json.dumps(ret)
 
 
