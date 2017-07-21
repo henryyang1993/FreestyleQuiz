@@ -30,6 +30,7 @@ def songMode():
     # session.attributes['mode'] = "song"
     musicData = requests.get("http://localhost/track?meta=song").json()
     session.attributes['answer'] = musicData['meta']
+    print "Get Meta Answer: " + musicData['meta']
 
     audio = {
         "response": {
@@ -51,15 +52,15 @@ def songMode():
     }
     return json.dumps(audio)
 
-@ask.intent("ArtistIntent")
+@ask.intent("SingerIntent")
 
-def artistMode():
+def singerMode():
     # session.attributes['mode'] = "singer"
     #play music
     # play_msg = render_template('guess')
     musicData = requests.get("http://localhost/track?meta=artist").json()
     session.attributes['answer'] = musicData['meta']
-
+    print "Get Meta Answer: " + musicData['meta']
     audio = {
         "response": {
             "directives": [
@@ -90,7 +91,7 @@ def next_round():
 @ask.intent("AnswerIntent", convert={'answer': str})
 
 def answer(answer):
-    print "The answer is" + answer
+    print "The answer is " + answer
     winning_answer = session.attributes['answer']
 
     if answer == winning_answer:
