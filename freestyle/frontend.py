@@ -109,6 +109,28 @@ def answer(song, singer):
 
     return question(msg).reprompt(render_template("reprompt"))
 
+@ask.intent("ListenIntent")
+
+def listenMode():
+    audio = {
+        "response": {
+            "directives": [
+                {
+                    "type": "AudioPlayer.Play",
+                    "playBehavior": "REPLACE_ALL",
+                    "audioItem": {
+                        "stream": {
+                            "token": audioData["preview_url"],
+                            "url": audioData["preview_url"],
+                            "offsetInMilliseconds": 0
+                        }
+                    }
+                }
+            ],
+            "shouldEndSession": False
+        },
+        "sessionAttributes":session.attributes
+    }
 
 if __name__ == "__main__":
 

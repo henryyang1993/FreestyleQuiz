@@ -29,7 +29,6 @@ def gameMode():
     audioData = requests.get("http://localhost:8081/songMeta").json()
     session.attributes["song"] = audioData["song"]
     session.attributes["singer"] = audioData["singer"]
-
     ssml = "<speak>Guess the song name! <audio src='{}' />Aho, you miss that! Are you ready for next round?</speak>".format("https://b530e54b.ngrok.io/songfile?name=%s" % audioData["song"].replace(" ", "_"))
 
     audio = {
@@ -43,6 +42,7 @@ def gameMode():
         "sessionAttributes":session.attributes
     }
     return json.dumps(audio)
+
 
 @ask.intent("TerminateIntent")
 
@@ -73,6 +73,33 @@ def answer(song):
         msg = render_template("wrong", song=correct_song, singer=correct_singer)
 
     return question(msg).reprompt(render_template("reprompt"))
+
+
+@ask.intent("ListenIntent")
+
+def listenMode():
+    audioData = requests.get("http://localhost:8081/fullSongMeta").json()
+    url = "https://b530e54b.ngrok.io/fullSongfile?name=%s" % audioData["song"].replace(" ", "_")
+
+    audio = {
+        "response": {
+            "directives": [
+                {
+                    "type": "AudioPlayer.Play",
+                    "playBehavior": "REPLACE_ALL",
+                    "audioItem": {
+                        "stream": {
+                            "token": url,
+                            "url": url,
+                            "offsetInMilliseconds": 0
+                        }
+                    }
+                }
+            ],
+            "shouldEndSession": True
+        }
+    }
+    return json.dumps(audio)
 
 
 if __name__ == "__main__":
