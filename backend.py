@@ -1,7 +1,8 @@
-from flask import Flask, request
+from flask import Flask, request, make_response, send_file
 import requests
 import base64
 import json
+from convert import covertSong
 
 app = Flask(__name__, static_url_path="")
 spotify = {}
@@ -40,6 +41,8 @@ def handleSong():
     response = r.json()
     song = response["name"]
     singer = response["artists"][0]["name"]
+
+    covertSong(response["preview_url"])
     ret = {"preview_url": response["preview_url"], "song": song, "singer": singer}
     return json.dumps(ret)
 
