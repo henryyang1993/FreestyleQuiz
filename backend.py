@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response, send_file
+from flask import Flask, request, send_from_directory
 import requests
 import base64
 import json
@@ -28,9 +28,7 @@ def handleIndex():
 
 @app.route("/songfile", methods=["GET"])
 def getSongFile():
-    response = make_response(send_file("output.mp3"))
-    response.headers["Content-Disposition"] = "attachment; filename=output.mp3;"
-    return response
+    return send_from_directory('.', "output.mp3")
 
 @app.route("/track", methods=["GET"])
 def handleSong():
@@ -45,7 +43,6 @@ def handleSong():
     covertSong(response["preview_url"])
     ret = {"preview_url": response["preview_url"], "song": song, "singer": singer}
     return json.dumps(ret)
-
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=80, threaded=True)
