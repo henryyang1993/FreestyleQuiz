@@ -34,6 +34,20 @@
       ]
     },
     {
+      "name": "GameIntent",
+      "samples": [
+        "game mode"
+      ],
+      "slots": []
+    },
+    {
+      "name": "ListenIntent",
+      "samples": [
+        "listen mode"
+      ],
+      "slots": []
+    },
+    {
       "name": "NextIntent",
       "samples": [
         "Come on",
@@ -42,13 +56,6 @@
         "Sure",
         "Yes",
         "Ready"
-      ],
-      "slots": []
-    },
-    {
-      "name": "GameIntent",
-      "samples": [
-        "game mode"
       ],
       "slots": []
     },
