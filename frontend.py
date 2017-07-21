@@ -79,7 +79,7 @@ def answer(song):
 
 def listenMode():
     audioData = requests.get("http://localhost:8081/fullSongMeta").json()
-    url = "https://b530e54b.ngrok.io/fullSongfile?name=%s" % audioData["song"].replace(" ", "_")
+    url = "https://b530e54b.ngrok.io/songfile?name=%s" % audioData["song"].replace(" ", "_")
 
     audio = {
         "response": {
