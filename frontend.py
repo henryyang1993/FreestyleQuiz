@@ -111,14 +111,13 @@ def cancelAlexa():
 @ask.intent("AMAZON.StopIntent")
 
 def stopAlexa():
-    ssml = "<speak>Good bye!</speak>"
-
     audio = {
         "response": {
-            "outputSpeech": {
-                "type": "SSML",
-                "ssml": ssml
-            },
+            "directives": [
+                {
+                    "type": "AudioPlayer.Stop"
+                }
+            ],
             "shouldEndSession": True
         }
     }
