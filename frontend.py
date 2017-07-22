@@ -117,8 +117,7 @@ def stopAlexa():
                 {
                     "type": "AudioPlayer.Stop"
                 }
-            ],
-            "shouldEndSession": True
+            ]
         }
     }
     return json.dumps(audio)
