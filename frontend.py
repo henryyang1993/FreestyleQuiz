@@ -102,6 +102,29 @@ def listenMode():
     return json.dumps(audio)
 
 
+@ask.intent("AMAZON.CancelIntent")
+
+def cancelAlexa():
+    return stopAlexa()
+
+
+@ask.intent("AMAZON.StopIntent")
+
+def stopAlexa():
+    ssml = "<speak>Good bye!</speak>"
+
+    audio = {
+        "response": {
+            "outputSpeech": {
+                "type": "SSML",
+                "ssml": ssml
+            },
+            "shouldEndSession": True
+        }
+    }
+    return json.dumps(audio)
+
+
 if __name__ == "__main__":
 
     app.run(debug=True, host="0.0.0.0", port=8080, threaded=True)
