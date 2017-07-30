@@ -2,9 +2,9 @@ welcome: I am your kitchen friend. Are you ready to get some fun?
 
 next: What mode do you want? Listen mode or game mode.
 
-correct: Good job! That's {{ song }} from {{ singer }}. Are you ready for next round?
+correct: Good job! That's {{ song }}, from {{ singer }}. Are you ready for next round?
 
-wrong: Sorry, That's {{ song }} from {{ singer }}. Are you ready for next round?
+wrong: Sorry, That's {{ song }}, from {{ singer }}. Are you ready for next round?
 
 terminate: Good bye! Have a good one.
 

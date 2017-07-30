@@ -134,7 +134,7 @@ def stop():
 @ask.intent("AMAZON.PauseIntent")
 
 def pause():
-    ssml = "<speak>What is the song?</speak>"
+    ssml = "<speak>take your time!</speak>"
 
     audio = {
         "response": {
