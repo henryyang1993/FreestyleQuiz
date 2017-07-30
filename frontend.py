@@ -29,7 +29,7 @@ def gameMode():
     audioData = requests.get("http://localhost:8081/songMeta").json()
     session.attributes["song"] = audioData["song"]
     session.attributes["singer"] = audioData["singer"]
-    ssml = "<speak>Guess the song name! <audio src='{}' />Aho, you miss that! Are you ready for next round?</speak>".format("https://b530e54b.ngrok.io/songfile?name=%s" % audioData["song"].replace(" ", "_"))
+    ssml = "<speak>Guess the song name! <audio src='{}' />What is the song?</speak>".format("https://b530e54b.ngrok.io/songfile?name=%s" % audioData["song"].replace(" ", "_"))
 
     audio = {
         "response": {
@@ -127,6 +127,24 @@ def stop():
             },
             "shouldEndSession": True
         }
+    }
+    return json.dumps(audio)
+
+
+@ask.intent("AMAZON.PauseIntent")
+
+def pause():
+    ssml = "<speak>What is the song?</speak>"
+
+    audio = {
+        "response": {
+            "outputSpeech": {
+                "type": "SSML",
+                "ssml": ssml
+            },
+            "shouldEndSession": False
+        },
+        "sessionAttributes":session.attributes
     }
     return json.dumps(audio)
 
