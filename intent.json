@@ -55,7 +55,9 @@
         "Please do",
         "Sure",
         "Yes",
-        "Ready"
+        "Ready",
+        "Let's get it",
+        "Let's start"
       ],
       "slots": []
     },

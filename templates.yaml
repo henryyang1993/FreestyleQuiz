@@ -1,6 +1,6 @@
-welcome: I am your kitchen friend. Are you preparing your breakfast?
+welcome: I am your kitchen friend. Are you ready to get some fun?
 
-next: Let's get some fun! What mode do you want? Listen mode or game mode.
+next: What mode do you want? Listen mode or game mode.
 
 correct: Good job! That's {{ song }} from {{ singer }}. Are you ready for next round?
 
@@ -9,3 +9,5 @@ wrong: Sorry, That's {{ song }} from {{ singer }}. Are you ready for next round?
 terminate: Good bye! Have a good one.
 
 reprompt: Sorry, I didn't get you. Could you say that again?
+
+help: you can say I'm ready or Let's get it to start mode selection. You can also say listen mode or game mode to select the mode.

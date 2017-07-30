@@ -104,23 +104,40 @@ def listenMode():
 
 @ask.intent("AMAZON.CancelIntent")
 
-def cancelAlexa():
-    return stopAlexa()
+def cancel():
+    return stop()
 
 
 @ask.intent("AMAZON.StopIntent")
 
-def stopAlexa():
+def stop():
+    ssml = "<speak>Good bye! Have a good one.</speak>"
+
     audio = {
         "response": {
             "directives": [
                 {
-                    "type": "AudioPlayer.Stop"
+                    "type": "AudioPlayer.Stop",
+                    "clearBehavior": "CLEAR_ALL"
                 }
-            ]
+            ],
+            "outputSpeech": {
+                "type": "SSML",
+                "ssml": ssml
+            },
+            "shouldEndSession": True
         }
     }
     return json.dumps(audio)
+
+
+@ask.intent("AMAZON.HelpIntent")
+
+def help():
+    
+    help_msg = render_template("help")
+
+    return question(help_msg).reprompt(render_template("reprompt"))
 
 
 if __name__ == "__main__":
