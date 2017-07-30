@@ -61,7 +61,7 @@ def next_round():
 @ask.intent("AnswerIntent", convert={"song": str})
 
 def answer(song):
-    if not session.attributes["song"] or not session.attributes["singer"]:
+    if "song" not in session.attributes or "singer" not in session.attributes:
         return question(render_template("next")).reprompt(render_template("reprompt"))
 
     correct_song = session.attributes["song"]
