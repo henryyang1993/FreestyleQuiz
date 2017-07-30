@@ -142,9 +142,8 @@ def pause():
                 "type": "SSML",
                 "ssml": ssml
             },
-            "shouldEndSession": False
-        },
-        "sessionAttributes":session.attributes
+            "shouldEndSession": True
+        }
     }
     return json.dumps(audio)
 
