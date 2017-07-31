@@ -83,6 +83,7 @@ def answer(song):
 def listenMode():
     audioData = requests.get("http://localhost:8081/fullSongMeta").json()
     url = "https://b530e54b.ngrok.io/songfile?name=%s" % audioData["song"].replace(" ", "_")
+    session.attributes["url"] = url
 
     audio = {
         "response": {
@@ -100,7 +101,8 @@ def listenMode():
                 }
             ],
             "shouldEndSession": True
-        }
+        },
+        "sessionAttributes":session.attributes
     }
     return json.dumps(audio)
 
@@ -137,15 +139,58 @@ def stop():
 @ask.intent("AMAZON.PauseIntent")
 
 def pause():
-    ssml = "<speak>take your time!</speak>"
+    url = None
 
     audio = {
         "response": {
-            "outputSpeech": {
-                "type": "SSML",
-                "ssml": ssml
-            },
-            "shouldEndSession": True
+            "directives": [
+                {
+                    "type": "AudioPlayer.Play",
+                    "playBehavior": "REPLACE_ALL"
+                }
+            ],
+            "shouldEndSession": False
+        }
+    }
+
+    return json.dumps(audio)
+
+    if "url" in session.attributes:
+        url = session.attributes["url"]
+        audio = {
+            "response": {
+                "directives": [
+                    {
+                        "type": "AudioPlayer.Play",
+                        "playBehavior": "REPLACE_ALL",
+                        "audioItem": {
+                            "stream": {
+                                "token": url,
+                                "url": url,
+                                "offsetInMilliseconds": 0
+                            }
+                        }
+                    }
+                ],
+                "shouldEndSession": False
+            }
+        }
+        return json.dumps(audio)
+    else:
+        return stop()
+
+
+@ask.intent("AMAZON.ResumeIntent")
+
+def resume():
+    audio = {
+        "response": {
+            "directives": [
+                {
+                    "type": "AudioPlayer.PlaybackStarted"
+                }
+            ],
+            "shouldEndSession": False
         }
     }
     return json.dumps(audio)
