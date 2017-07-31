@@ -10,7 +10,9 @@
     },
     {
       "name": "AMAZON.PauseIntent",
-      "samples": []
+      "samples": [
+        "pause"
+      ]
     },
     {
       "name": "AMAZON.ResumeIntent",
@@ -18,7 +20,11 @@
     },
     {
       "name": "AMAZON.StopIntent",
-      "samples": []
+      "samples": [
+        "stop",
+        "turn off",
+        "shut up"
+      ]
     },
     {
       "name": "AnswerIntent",
@@ -68,8 +74,7 @@
         "That's it",
         "No thanks",
         "Good bye",
-        "Shut up",
-        "Turn off"
+        "I'm good"
       ],
       "slots": []
     }
