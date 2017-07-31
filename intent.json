@@ -67,7 +67,9 @@
         "No",
         "That's it",
         "No thanks",
-        "Good bye"
+        "Good bye",
+        "Shut up",
+        "Turn off"
       ],
       "slots": []
     }

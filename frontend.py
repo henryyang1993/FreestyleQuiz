@@ -78,7 +78,7 @@ def listenMode():
     audioData = requests.get("http://localhost:8081/fullSongMeta").json()
     url = "https://b530e54b.ngrok.io/songfile?name=%s" % audioData["song"].replace(" ", "_")
 
-    return audio('Playing').play(url)
+    return audio('Enjoy.').play(url)
 
 
 @ask.intent("AMAZON.CancelIntent")
