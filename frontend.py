@@ -83,7 +83,6 @@ def answer(song):
 def listenMode():
     audioData = requests.get("http://localhost:8081/fullSongMeta").json()
     url = "https://b530e54b.ngrok.io/songfile?name=%s" % audioData["song"].replace(" ", "_")
-    session.attributes["url"] = url
 
     audio = {
         "response": {
@@ -140,44 +139,18 @@ def stop():
 
 def pause():
     url = None
-
+    
     audio = {
         "response": {
             "directives": [
                 {
-                    "type": "AudioPlayer.Play",
-                    "playBehavior": "REPLACE_ALL"
+                    "type": "AudioPlayer.Stop"
                 }
             ],
             "shouldEndSession": False
         }
     }
-
     return json.dumps(audio)
-
-    if "url" in session.attributes:
-        url = session.attributes["url"]
-        audio = {
-            "response": {
-                "directives": [
-                    {
-                        "type": "AudioPlayer.Play",
-                        "playBehavior": "REPLACE_ALL",
-                        "audioItem": {
-                            "stream": {
-                                "token": url,
-                                "url": url,
-                                "offsetInMilliseconds": 0
-                            }
-                        }
-                    }
-                ],
-                "shouldEndSession": False
-            }
-        }
-        return json.dumps(audio)
-    else:
-        return stop()
 
 
 @ask.intent("AMAZON.ResumeIntent")
