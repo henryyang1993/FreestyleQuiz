@@ -4,7 +4,7 @@ import requests
 
 
 from flask import Flask, render_template
-from flask_ask import Ask, statement, question, session
+from flask_ask import Ask, statement, question, session, audio
 
 
 app = Flask(__name__)
@@ -15,7 +15,6 @@ logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 
 
 @ask.launch
-
 def new_game():
 
     welcome_msg = render_template("welcome")
@@ -24,7 +23,6 @@ def new_game():
 
 
 @ask.intent("GameIntent")
-
 def gameMode():
     audioData = requests.get("http://localhost:8081/songMeta").json()
     session.attributes["song"] = audioData["song"]
@@ -45,21 +43,18 @@ def gameMode():
 
 
 @ask.intent("TerminateIntent")
-
 def terminate():
     msg = render_template("terminate")
     return statement(msg)
 
  
 @ask.intent("NextIntent")
-
 def next_round():
     msg = render_template("next")
     return question(msg).reprompt(render_template("reprompt"))
  
 
 @ask.intent("AnswerIntent", convert={"song": str})
-
 def answer(song):
     if "song" not in session.attributes or "singer" not in session.attributes:
         return question(render_template("next")).reprompt(render_template("reprompt"))
@@ -79,98 +74,34 @@ def answer(song):
 
 
 @ask.intent("ListenIntent")
-
 def listenMode():
     audioData = requests.get("http://localhost:8081/fullSongMeta").json()
     url = "https://b530e54b.ngrok.io/songfile?name=%s" % audioData["song"].replace(" ", "_")
 
-    audio = {
-        "response": {
-            "directives": [
-                {
-                    "type": "AudioPlayer.Play",
-                    "playBehavior": "REPLACE_ALL",
-                    "audioItem": {
-                        "stream": {
-                            "token": url,
-                            "url": url,
-                            "offsetInMilliseconds": 0
-                        }
-                    }
-                }
-            ],
-            "shouldEndSession": True
-        },
-        "sessionAttributes":session.attributes
-    }
-    return json.dumps(audio)
+    return audio('Playing').play(url)
 
 
 @ask.intent("AMAZON.CancelIntent")
-
 def cancel():
     return stop()
 
 
 @ask.intent("AMAZON.StopIntent")
-
 def stop():
-    ssml = "<speak>Good bye! Have a good one.</speak>"
-
-    audio = {
-        "response": {
-            "directives": [
-                {
-                    "type": "AudioPlayer.Stop",
-                    "clearBehavior": "CLEAR_ALL"
-                }
-            ],
-            "outputSpeech": {
-                "type": "SSML",
-                "ssml": ssml
-            },
-            "shouldEndSession": True
-        }
-    }
-    return json.dumps(audio)
+    return audio('Good bye! Have a good one').clear_queue(stop=True)
 
 
 @ask.intent("AMAZON.PauseIntent")
-
 def pause():
-    url = None
-    
-    audio = {
-        "response": {
-            "directives": [
-                {
-                    "type": "AudioPlayer.Stop"
-                }
-            ],
-            "shouldEndSession": False
-        }
-    }
-    return json.dumps(audio)
+    return audio('Paused the stream.').stop()
 
 
 @ask.intent("AMAZON.ResumeIntent")
-
 def resume():
-    audio = {
-        "response": {
-            "directives": [
-                {
-                    "type": "AudioPlayer.PlaybackStarted"
-                }
-            ],
-            "shouldEndSession": False
-        }
-    }
-    return json.dumps(audio)
+    return audio('Resuming.').resume()
 
 
 @ask.intent("AMAZON.HelpIntent")
-
 def help():
     
     help_msg = render_template("help")
