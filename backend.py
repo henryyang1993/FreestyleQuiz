@@ -39,6 +39,12 @@ def getFullSongMeta():
     ret = getFullSong()
     return json.dumps(ret)
 
+
+@app.route("/unicorn", methods=["GET"])
+def getUnicornImage():
+    index = random.randint(0, 2)
+    return send_from_directory('unicorn', "%d.jpg" % index)
+
 	
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8081, threaded=True)
